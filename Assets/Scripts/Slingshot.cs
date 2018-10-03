@@ -13,6 +13,17 @@ public class Slingshot : MonoBehaviour
     public Vector3 launchPos;
     public GameObject projectile;
     public bool aimingMode;
+    private Rigidbody projectileRigidbody;
+    static public Vector3 LAUNCH_POS
+    { 
+        get
+        {
+            if (S == null) return Vector3.zero;
+            return S.launchPos;
+        }
+    }
+    
+
     void Awake()
     {
         // Set the Slingshot singleton S
@@ -79,7 +90,8 @@ public class Slingshot : MonoBehaviour
             projectile.GetComponent<Rigidbody>().velocity = -mouseDelta * velocityMult;
             FollowCam.S.poi = projectile;
             projectile = null;
-          
+           
         }
     }
+
 }
