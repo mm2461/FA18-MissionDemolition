@@ -702,6 +702,7 @@ GameObject:
   - component: {fileID: 1230035332}
   - component: {fileID: 1230035335}
   - component: {fileID: 1230035336}
+  - component: {fileID: 1230035337}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -750,7 +751,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -804,6 +805,32 @@ MonoBehaviour:
   cloudScaleMin: 1
   cloudScaleMax: 3
   cloudSpeedMult: 0.5
+--- !u!114 &1230035337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1230035331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1360afb62534bc46b8e27a34eee6a9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uitLevel: {fileID: 934924931}
+  uitShots: {fileID: 1790594641}
+  uitButton: {fileID: 1693388741}
+  castlePos: {x: 50, y: -9.5, z: 0}
+  castles:
+  - {fileID: 1368949573078772, guid: f84c02e03c236ff46959d674a8ea504f, type: 2}
+  - {fileID: 1368949573078772, guid: f84c02e03c236ff46959d674a8ea504f, type: 2}
+  - {fileID: 1368949573078772, guid: f84c02e03c236ff46959d674a8ea504f, type: 2}
+  - {fileID: 1368949573078772, guid: f84c02e03c236ff46959d674a8ea504f, type: 2}
+  level: 0
+  levelMax: 0
+  shotsTaken: 0
+  castle: {fileID: 0}
+  mode: 0
+  showing: Show Slingshot
 --- !u!1 &1348036183
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,7 +924,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1352208591}
-  - component: {fileID: 1352208590}
   m_Layer: 0
   m_Name: ViewBoth
   m_TagString: Untagged
@@ -905,17 +931,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1352208590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1352208589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bdde699545bbc7479673dea12ef29d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1352208591
 Transform:
   m_ObjectHideFlags: 0
@@ -1362,7 +1377,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2084544049}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1230035337}
+        m_MethodName: SwitchView
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2084544049

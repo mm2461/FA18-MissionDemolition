@@ -1,83 +1,77 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
-
+using UnityEngine.UI; // a
 public enum GameMode
-{
-    idle, playing, levelEnd
+{ // b
+    idle,
+    playing,
+    levelEnd
 }
-
-
 public class MissionDemolition : MonoBehaviour
 {
-    static public MissionDemolition S;
-
+    static private MissionDemolition S; // a private Singleton
+    [Header("Set in Inspector")]
+    public Text uitLevel; // The UIText_Level Text
+    public Text uitShots; // The UIText_Shots Text
+    public Text uitButton; // The Text on UIButton_View
+    public Vector3 castlePos; // The place to put castles
     public GameObject[] castles; // An array of the castles
-    public Text gtLevel;
-    public Text gtScore;
-    public Vector3 castlePos;
-
-    public bool _______________;
-    public int level;
-    public int levelMax;
+    [Header("Set Dynamically")]
+    public int level; // The current level
+    public int levelMax; // The number of levels
     public int shotsTaken;
-    public GameObject castle;
+    public GameObject castle; // The current castle
     public GameMode mode = GameMode.idle;
-    public string showing = "Slingshot"; // FollowCam mode;
-
-
-    // Use this for initialization
+    public string showing = "Show Slingshot"; // FollowCam mode
     void Start()
     {
         S = this; // Define the Singleton
-
         level = 0;
         levelMax = castles.Length;
         StartLevel();
     }
-
     void StartLevel()
     {
-        //GetRid of the old castle if one exists;
+        // Get rid of the old castle if one exists
         if (castle != null)
         {
             Destroy(castle);
         }
-
+        // Destroy old projectiles if they exist
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Projectile");
         foreach (GameObject pTemp in gos)
         {
             Destroy(pTemp);
         }
-
-        castle = Instantiate(castles[level]) as GameObject;
+        // Instantiate the new castle
+        castle = Instantiate<GameObject>(castles[level]);
         castle.transform.position = castlePos;
         shotsTaken = 0;
-
-        SwitchView("Both");
+        // Reset the camera
+        SwitchView("wShow Both");
         ProjectileLine.S.Clear();
-
+        // Reset the goal
         Goal.goalMet = false;
-
-        ShowGT();
-
+        UpdateGUI();
         mode = GameMode.playing;
     }
-
-    void ShowGT()
+    void UpdateGUI()
     {
-        gtLevel.text = "Level: " + (level + 1) + "of " + levelMax;
-        gtScore.text = "Shots taken: " + shotsTaken;
+        // Show the data in the GUITexts
+        uitLevel.text = "Level: " + (level + 1) + "of " + levelMax;
+        uitShots.text = "Shots Taken: " + shotsTaken;
     }
-
-    // Update is called once per frame
     void Update()
     {
-        ShowGT();
-        if (mode == GameMode.playing && Goal.goalMet)
+        UpdateGUI();
+        // Check for level end
+        if ((mode == GameMode.playing) && Goal.goalMet)
         {
+            // Change mode to stop checking for level end
             mode = GameMode.levelEnd;
-            SwitchView("Both");
+            // Zoom out
+            SwitchView("Show Both");
+            // Start the next level in 2 seconds
             Invoke("NextLevel", 2f);
         }
     }
@@ -90,54 +84,33 @@ public class MissionDemolition : MonoBehaviour
         }
         StartLevel();
     }
-    void OnGUI()
-    {
-        Rect buttonRect = new Rect((Screen.width / 2) - 50, 10, 100, 24);
+    public void SwitchView(string eView = "")
+    { //
+      
+    if (eView == "")
+        {
+            eView = uitButton.text;
+        }
+        showing = eView;
         switch (showing)
         {
-            case "Slingshot":
-                if (GUI.Button(buttonRect, "Show Castle"))
-                {
-                    SwitchView("Castle");
-                }
-                break;
-            case "Castle":
-                if (GUI.Button(buttonRect, "Show Both"))
-                {
-                    SwitchView("Both");
-                }
-                break;
-            case "Both":
-                if (GUI.Button(buttonRect, "Show Slingshot"))
-                {
-                    SwitchView("Slingshot");
-                }
-                break;
-        }
-    }
-
-    static public void SwitchView(string eView)
-    {
-        S.showing = eView;
-        switch (S.showing)
-        {
-            case "Slingshot":
+            case "Show Slingshot":
                 FollowCam.S.poi = null;
+                uitButton.text = "Show Castle";
                 break;
-            case "Castle":
+            case "Show Castle":
                 FollowCam.S.poi = S.castle;
+                uitButton.text = "Show Both";
                 break;
-            case "Both":
+            case "Show Both":
                 FollowCam.S.poi = GameObject.Find("ViewBoth");
+                uitButton.text = "Show Slingshot";
                 break;
         }
     }
-
+    // Static method that allows code anywhere to increment shotsTaken
     public static void ShotFired()
-    {
+    { // d
         S.shotsTaken++;
     }
-
-
-
 }
