@@ -48,7 +48,7 @@ public class MissionDemolition : MonoBehaviour
         castle.transform.position = castlePos;
         shotsTaken = 0;
         // Reset the camera
-        SwitchView("wShow Both");
+        SwitchView("Show Both");
         ProjectileLine.S.Clear();
         // Reset the goal
         Goal.goalMet = false;
@@ -67,11 +67,11 @@ public class MissionDemolition : MonoBehaviour
         // Check for level end
         if ((mode == GameMode.playing) && Goal.goalMet)
         {
-            // Change mode to stop checking for level end
+            
             mode = GameMode.levelEnd;
-            // Zoom out
+            
             SwitchView("Show Both");
-            // Start the next level in 2 seconds
+           
             Invoke("NextLevel", 2f);
         }
     }

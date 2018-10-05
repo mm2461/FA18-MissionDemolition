@@ -22,7 +22,7 @@ public class Cloud : MonoBehaviour
         for (int i = 0; i < num; i++)
         {
             GameObject sp = Instantiate<GameObject>(cloudSphere
-            ); // d
+                ); //d
             spheres.Add(sp);
             Transform spTrans = sp.transform;
             spTrans.SetParent(this.transform);
