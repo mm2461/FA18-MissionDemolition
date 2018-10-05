@@ -21,8 +21,7 @@ public class Cloud : MonoBehaviour
         numSpheresMax); // c
         for (int i = 0; i < num; i++)
         {
-            GameObject sp = Instantiate<GameObject>(cloudSphere
-                ); //d
+            GameObject sp = Instantiate<GameObject>(cloudSphere); //d
             spheres.Add(sp);
             Transform spTrans = sp.transform;
             spTrans.SetParent(this.transform);

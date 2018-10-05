@@ -110,8 +110,9 @@ public class ProjectileLine : MonoBehaviour
         }
         // If there is a poi,it's loc is added every FixedUpdate
         AddPoint();
-        if (poi.GetComponent<Rigidbody>().IsSleeping())
+        if (FollowCam.S.poi == null)
         {
+            // Once FollowCam.POI is null, make the local poi nulll too
             poi = null;
         }
     }
