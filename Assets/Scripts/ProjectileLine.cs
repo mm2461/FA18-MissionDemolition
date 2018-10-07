@@ -74,7 +74,7 @@ public class ProjectileLine : MonoBehaviour
         {
             //Normal behavior of adding a point
             points.Add(pt);
-            line.SetVertexCount(points.Count);
+            line.positionCount = points.Count;
             line.SetPosition(points.Count - 1, lastPoint);
             line.enabled = true;
         }

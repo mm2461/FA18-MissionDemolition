@@ -82,6 +82,7 @@ public class Slingshot : MonoBehaviour
         // Move the projectile to this new position
         Vector3 projPos = launchPos + mouseDelta;
         projectile.transform.position = projPos;
+
         if (Input.GetMouseButtonUp(0))
         {
             // The mouse has been released
